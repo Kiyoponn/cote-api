@@ -31,3 +31,49 @@ export const getCharacter = async (id: number) => {
     }
   })
 }
+
+export const getAllStudents = async () => {
+  return db.characters.findMany({
+    where: {
+      professionalstatus: {
+        occupation: {
+          startsWith: "Student"
+        }
+      }
+    },
+    select: {
+      id: true,
+      name: true,
+      image: true,
+      nickname: true,
+      characteristics: true,
+      professionalstatus: true,
+    },
+    orderBy: {
+      id: "asc"
+    }
+  })
+}
+
+export const getAllTeachers = async () => {
+  return db.characters.findMany({
+    where: {
+      professionalstatus: {
+        occupation: {
+          startsWith: "Teacher"
+        }
+      }
+    },
+    select: {
+      id: true,
+      name: true,
+      image: true,
+      nickname: true,
+      characteristics: true,
+      professionalstatus: true,
+    },
+    orderBy: {
+      id: "asc"
+    }
+  })
+}
