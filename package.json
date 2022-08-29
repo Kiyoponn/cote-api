@@ -7,9 +7,8 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "scripts": {
-    "build": "tsc",
-    "dev": "nodemon src/index.ts",
-    "test": "ts-node prisma/test.ts"
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon src/index.ts"
   },
   "keywords": [
     "api",
