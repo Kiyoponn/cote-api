@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client"
+import { db } from "../src/utils/db.server"
 import { characteristics, characters, professionalstatus } from "../src/utils/scrapper"
-
-const db = new PrismaClient()
 
 async function seed() {
   const data = await db.characters.findMany()
