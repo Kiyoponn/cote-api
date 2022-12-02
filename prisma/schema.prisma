@@ -21,20 +21,17 @@ model characters {
 
 model characteristics {
   id          Int        @id @default(autoincrement())
-  characters  characters @relation(fields: [id], references: [id], onDelete: Cascade)
   gender      String?
   age         Int?
   dateOfBirth String?
   height      Int?
   hairColor   String?
   eyeColor    String?
-
-  @@index([id])
+  character   characters @relation(fields: [id], references: [id], onDelete: Cascade)
 }
 
 model professionalstatus {
   id          Int        @id @default(autoincrement())
-  characters  characters @relation(fields: [id], references: [id], onDelete: Cascade)
   schoolId    String?
   year        Int?
   grade       String?
@@ -42,6 +39,5 @@ model professionalstatus {
   group       String?
   occupation  String?
   affiliation String?
-
-  @@index([id])
+  character   characters @relation(fields: [id], references: [id], onDelete: Cascade)
 }
