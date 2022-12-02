@@ -2,9 +2,9 @@ import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import path from 'path';
 
 import api from './api';
-import MessageResponse from './interfaces/MessageResponse';
 import * as middlewares from './middlewares';
 
 require('dotenv').config();
@@ -16,12 +16,11 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-app.get<{}, MessageResponse>('/', (_, res) => {
-  res.json({
-    message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
-  });
-});
+const staticPath = app.use(express.static(path.join(__dirname, '../public')));
 
+app.get('/', (_, res) => {
+  return res.sendFile('/index.html', { root: staticPath });
+});
 app.use('/api/v1', api);
 
 app.use(middlewares.notFound);

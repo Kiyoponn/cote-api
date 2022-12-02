@@ -4,6 +4,7 @@ import { ParamsWithId } from '../../interfaces/ParamsWithId';
 import { validateRequest } from '../../middlewares';
 import * as CharactersHandler from './characters.handler';
 import teachers from './teachers/teachers.routes';
+import students from './students/students.routes';
 
 const router = Router();
 
@@ -11,7 +12,7 @@ const router = Router();
 router.use('/teachers', teachers);
 
 // route for /api/v1/characters/students
-router.use('/students', teachers);
+router.use('/students', students);
 
 // route for /api/v1/characters
 router.get('/', CharactersHandler.findMany);
