@@ -6,13 +6,13 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model characters {
   id                 Int                 @id @default(autoincrement())
-  name               String?             @unique
+  name               String              @unique
   nickname           String?
   japaneseName       String?
   image              String?

@@ -16,8 +16,12 @@ export async function findMany(
   try {
     const characters = await db.characters.findMany({
       include: {
-        characteristics: true,
-        professionalStatus: true,
+        characteristics: {
+          select: selectCharacteristics,
+        },
+        professionalStatus: {
+          select: selectProfessionalStatus,
+        },
       },
     })
 

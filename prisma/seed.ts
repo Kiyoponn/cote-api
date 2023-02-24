@@ -6,54 +6,35 @@ import {
 import { db } from '../src/db'
 
 async function seed() {
-  await db.$queryRaw`DELETE FROM sqlite_sequence WHERE name='characters'`
-  await db.$queryRaw`DELETE FROM sqlite_sequence WHERE name='characteristics'`
-  await db.$queryRaw`DELETE FROM sqlite_sequence WHERE name='professionalstatus'`
+  const data = await db.characters.findMany()
+
+  if (data) {
+    await db.characters.deleteMany({})
+    await db.characteristics.deleteMany({})
+    await db.professionalstatus.deleteMany({})
+
+    await db.$queryRaw`ALTER SEQUENCE "characters_id_seq" RESTART WITH 1`
+    await db.$queryRaw`ALTER SEQUENCE "characteristics_id_seq" RESTART WITH 1`
+    await db.$queryRaw`ALTER SEQUENCE "professionalstatus_id_seq" RESTART WITH 1`
+
+    console.log(`Database has been reset. 🧹`)
+  }
 
   const Characters = await charactersInfo()
   const Characteristics = await characteristics()
   const ProfessionalStatus = await professionalStatus()
 
-  for (const character of Characters) {
-    const { name, nickname, japaneseName, image } = character
-    await db.characters.create({
-      data: {
-        name,
-        nickname,
-        japaneseName,
-        image,
-      },
-    })
-  }
+  await db.characters.createMany({
+    data: Characters,
+  })
 
-  for (const characteristics of Characteristics) {
-    const { gender, age, dob, height, hairColor, eyeColor } = characteristics
-    await db.characteristics.create({
-      data: {
-        gender,
-        age,
-        dob,
-        height,
-        hairColor,
-        eyeColor,
-      },
-    })
-  }
+  await db.characteristics.createMany({
+    data: Characteristics,
+  })
 
-  for (const professionalstatus of ProfessionalStatus) {
-    const { occupation, club, grade, group, studentId, year } =
-      professionalstatus
-    await db.professionalstatus.create({
-      data: {
-        studentId,
-        occupation,
-        year,
-        grade,
-        club,
-        group,
-      },
-    })
-  }
+  await db.professionalstatus.createMany({
+    data: ProfessionalStatus,
+  })
 
   console.log(`Database has been seeded. 🌱`)
 }
