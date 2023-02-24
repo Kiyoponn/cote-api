@@ -1,8 +1,8 @@
 # Express API Starter with Typescript
 
-How to use this template:
+Get the template:
 
-```sh
+```bash
 npx create-express-api --typescript --directory my-api-name
 ```
 
@@ -34,26 +34,40 @@ Development utilities:
 * [supertest](https://www.npmjs.com/package/supertest)
   * HTTP assertions made easy via superagent.
 
-## Setup
+## Run Locally
 
-```
-npm install
+Clone the project
+
+```bash
+  git clone https://github.com/Kiyoponn/cote-api.git
 ```
 
-## Lint
+Go to the project directory
 
+```bash
+  cd cote-api
 ```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Linit
+
+```bash
 npm run lint
 ```
 
-## Test
+Test
 
-```
+```bash
 npm run test
 ```
 
-## Development
+Start the server
 
-```
-npm run dev
+```bash
+  npm run dev
 ```
