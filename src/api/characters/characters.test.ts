@@ -11,7 +11,7 @@ describe('GET /api/v1/characters', () => {
       .expect(200)
       .then((response) => {
         expect(response.body).toHaveProperty('length');
-        expect(response.body.length).toBe(65);
+        expect(response.body.length).toBe(76);
         expect(response.body[0]).toHaveProperty('name');
         expect(response.body[0]).toHaveProperty('image');
       }),
@@ -41,7 +41,7 @@ describe('GET /api/v1/characters/:id', () => {
   });
   it('responds with a not found error', (done) => {
     request(app)
-      .get(`/api/v1/characters/${70}`)
+      .get(`/api/v1/characters/${80}`)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(404, done);

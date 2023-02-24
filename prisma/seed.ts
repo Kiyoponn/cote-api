@@ -1,33 +1,68 @@
-import { characteristics, characters, professionalstatus } from '../src/utils/scrapper';
-import { db } from '../src/db';
+import {
+  characteristics,
+  charactersInfo,
+  professionalStatus,
+} from '../src/utils/scrapper'
+import { db } from '../src/db'
 
 async function seed() {
-  const data = await db.characters.findMany();
+  await db.$queryRaw`DELETE FROM sqlite_sequence WHERE name='characters'`
+  await db.$queryRaw`DELETE FROM sqlite_sequence WHERE name='characteristics'`
+  await db.$queryRaw`DELETE FROM sqlite_sequence WHERE name='professionalstatus'`
 
-  if (data) {
-    await db.characters.deleteMany();
-    await db.$queryRaw`ALTER TABLE characters AUTO_INCREMENT = 1;`;
-    await db.$queryRaw`ALTER TABLE characteristics AUTO_INCREMENT = 1;`;
-    await db.$queryRaw`ALTER TABLE professionalstatus AUTO_INCREMENT = 1;`;
+  const Characters = await charactersInfo()
+  const Characteristics = await characteristics()
+  const ProfessionalStatus = await professionalStatus()
+
+  for (const character of Characters) {
+    const { name, nickname, japaneseName, image } = character
+    await db.characters.create({
+      data: {
+        name,
+        nickname,
+        japaneseName,
+        image,
+      },
+    })
   }
 
-  const c = await characters();
-  const cs = await characteristics();
-  const ps = await professionalstatus();
+  for (const characteristics of Characteristics) {
+    const { gender, age, dob, height, hairColor, eyeColor } = characteristics
+    await db.characteristics.create({
+      data: {
+        gender,
+        age,
+        dob,
+        height,
+        hairColor,
+        eyeColor,
+      },
+    })
+  }
 
-  await db.characters.createMany({
-    data: c,
-  });
+  for (const professionalstatus of ProfessionalStatus) {
+    const { occupation, club, grade, group, studentId, year } =
+      professionalstatus
+    await db.professionalstatus.create({
+      data: {
+        studentId,
+        occupation,
+        year,
+        grade,
+        club,
+        group,
+      },
+    })
+  }
 
-  await db.characteristics.createMany({
-    data: cs,
-  });
-
-  await db.professionalstatus.createMany({
-    data: ps,
-  });
-
-  return;
+  console.log(`Database has been seeded. 🌱`)
 }
 
-seed();
+seed()
+  .catch((e) => {
+    console.error(e)
+    process.exit(1)
+  })
+  .finally(async () => {
+    await db.$disconnect()
+  })

@@ -11,7 +11,7 @@ describe('GET /api/v1/characters/teachers', () => {
       .expect(200)
       .then((response) => {
         expect(response.body).toHaveProperty('length');
-        expect(response.body.length).toBe(4);
+        expect(response.body.length).toBe(5);
       }),
   );
 });

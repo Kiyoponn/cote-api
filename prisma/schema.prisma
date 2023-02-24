@@ -6,38 +6,38 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model characters {
   id                 Int                 @id @default(autoincrement())
-  name               String
+  name               String?             @unique
   nickname           String?
-  image              String?             @db.VarChar(1024)
+  japaneseName       String?
+  image              String?
   characteristics    characteristics?
-  professionalstatus professionalstatus?
+  professionalStatus professionalstatus?
 }
 
 model characteristics {
-  id          Int        @id @default(autoincrement())
-  gender      String?
-  age         Int?
-  dateOfBirth String?
-  height      Int?
-  hairColor   String?
-  eyeColor    String?
-  character   characters @relation(fields: [id], references: [id], onDelete: Cascade)
+  id        Int        @id @default(autoincrement())
+  gender    String
+  age       Int?
+  dob       String?
+  height    String?
+  hairColor String?
+  eyeColor  String?
+  character characters @relation(fields: [id], references: [id], onDelete: Cascade)
 }
 
 model professionalstatus {
-  id          Int        @id @default(autoincrement())
-  schoolId    String?
-  year        Int?
-  grade       String?
-  club        String?
-  group       String?
-  occupation  String?
-  affiliation String?
-  character   characters @relation(fields: [id], references: [id], onDelete: Cascade)
+  id         Int        @id @default(autoincrement())
+  studentId  String?
+  occupation String?
+  year       Int?
+  grade      String?
+  club       String?
+  group      String?
+  character  characters @relation(fields: [id], references: [id], onDelete: Cascade)
 }
