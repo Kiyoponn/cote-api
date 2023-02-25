@@ -1,5 +1,5 @@
-import { db } from './db';
+import { db } from './db'
 
 global.afterAll(async () => {
-  await db.$disconnect();
-});
+  await db.$disconnect()
+})

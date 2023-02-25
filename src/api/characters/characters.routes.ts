@@ -1,21 +1,21 @@
-import { Router } from 'express';
+import { Router } from 'express'
 
-import { ParamsWithId } from '../../interfaces/ParamsWithId';
-import { validateRequest } from '../../middlewares';
-import * as CharactersHandler from './characters.handler';
-import teachers from './teachers/teachers.routes';
-import students from './students/students.routes';
+import { ParamsWithId } from '../../interfaces/ParamsWithId'
+import { validateRequest } from '../../middlewares'
+import * as CharactersHandler from './characters.handler'
+import teachers from './teachers/teachers.routes'
+import students from './students/students.routes'
 
-const router = Router();
+const router = Router()
 
 // route for /api/v1/characters/teachers
-router.use('/teachers', teachers);
+router.use('/teachers', teachers)
 
 // route for /api/v1/characters/students
-router.use('/students', students);
+router.use('/students', students)
 
 // route for /api/v1/characters
-router.get('/', CharactersHandler.findMany);
+router.get('/', CharactersHandler.findMany)
 
 // route for /api/v1/characters/:id
 router.get(
@@ -23,8 +23,7 @@ router.get(
   validateRequest({
     params: ParamsWithId,
   }),
-  CharactersHandler.findUnique,
-);
+  CharactersHandler.findUnique
+)
 
-
-export default router;
+export default router

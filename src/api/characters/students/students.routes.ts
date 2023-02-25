@@ -1,10 +1,10 @@
-import { Router } from 'express';
+import { Router } from 'express'
 
-import * as StudentsHandler from './students.handler';
+import * as StudentsHandler from './students.handler'
 
-const router = Router();
+const router = Router()
 
 // route for /api/v1/characters/teachers
-router.get('/', StudentsHandler.findMany);
+router.get('/', StudentsHandler.findMany)
 
-export default router;
+export default router

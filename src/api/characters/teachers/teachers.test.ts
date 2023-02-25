@@ -1,6 +1,6 @@
-import request from 'supertest';
+import request from 'supertest'
 
-import app from '../../../app';
+import app from '../../../app'
 
 describe('GET /api/v1/characters/teachers', () => {
   it('responds with an array of teachers', async () =>
@@ -10,8 +10,7 @@ describe('GET /api/v1/characters/teachers', () => {
       .expect('Content-Type', /json/)
       .expect(200)
       .then((response) => {
-        expect(response.body).toHaveProperty('length');
-        expect(response.body.length).toBe(5);
-      }),
-  );
-});
+        expect(response.body).toHaveProperty('length')
+        expect(response.body.length).toBe(5)
+      }))
+})
